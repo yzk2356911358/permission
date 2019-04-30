@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="studentNamespace">
+
+	<resultMap type="com.flf.entity.Student" id="studentMap">
+		<id property="id" column="sid" />
+		<result property="name" column="sname" />
+		<result property="number" column="number" />
+		<result property="clas" column="clas" />
+		<result property="grade" column="grade" />
+		<result property="teacher" column="teacher" />
+		<result property="address" column="address" />
+	</resultMap>
+
+	<select id="findById" parameterType="int" resultMap="studentMap">
+		SELECT *
+		FROM STUDENT WHERE id = #{id};
+	</select>
+	<!--根据id删除 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM STUDENT WHERE
+		id=#{id};
+
+	</delete>
+	<select id="findAllStudent" resultMap="studentMap">
+		SELECT * FROM STUDENT;
+	</select>
+	<insert id="add" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.flf.entity.Student">
+		INSERT INTO STUDENT
+		(name,number,clas,grade,teacher,address) VALUES
+		(#{name},#{number},#{clas},#{grade},#{teacher},#{address});
+	</insert>
+	<!--更新 -->
+	<update id="update" parameterType="com.flf.entity.Student">
+		update student set
+		name=#{name},number=#{number},clas=#{clas},grade=#{grade},teacher=#{teacher},address=#{address}
+		where id=#{id};
+	</update>
+</mapper>
